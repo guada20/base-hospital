@@ -1,0 +1,47 @@
+create database Hospital_guada
+--crear la tabla sede hospital 
+create table Sede_Hospital(
+Cod_Hospital char (7) primary key,
+Nombre_Hospital varchar(20),
+Direccion varchar (50),
+Telefono int,
+Num_Camas int)
+--crear tabla doctor
+create table Doctor(
+Id_Doctor int primary key,
+Cod_Hospital char(7) foreign key references Sede_Hospital(Cod_Hospital),
+Apellido_Doctor varchar(20),
+Especialidad varchar(20) )
+
+--crear tabla sala 
+create table Sala(
+Cod_Sala char primary key,
+Cod_Hospital char(7) foreign key references  Sede_Hospital(Cod_Hospital) ,
+Nombre_Sala varchar(30), 
+Numero_Camas int )
+--crear tabla plantillas 
+create table Plantillas(
+No_Empleado int primary key,
+Cod_Sala char foreign key references Sala (Cod_sala),
+Cod_Hospital char (7) foreign key references Sede_Hospital(Cod_Hospital),
+Apellido varchar(20),
+Funcion varchar(50),
+Turno varchar(20),
+Salario Float)
+--agregar registros a la tabla sede hospital:
+--¿cuantos campor tiene esta tabla? 5 campos
+--¿cual es el orden de estos campos?Cod_Hospital,Nombre, Direccion, Telefono. Numcamas
+--¿cuales son los tipos de datos? char, varchar, varchar, int, int
+insert into Sede_Hospital values ('A001','Hospital Sede Sur','Cr 10 #40-90', 4449086,23)
+insert into Sede_Hospital values ('A002','Hospital Sede Sur','Cr 10 #40-30', 4449586,20)
+insert into Sede_Hospital values ('A003','Hospital Sede Norte','tr 20 #30-30', 4448000,7)
+insert into Sede_Hospital values ('A004','Hospital Sede Centro','Cll 11 #20-15', 2729046,30)
+insert into Sede_Hospital values ('A005','Hospital Sede sur2','cll 89 #42A-03', 6013090,15)
+
+--consultar todos los registros de la tabla 
+select*from Sede_Hospital
+--de la tabla Sede_Hospital traer todos los registros, pero mostrar solamente campo 
+--nombre hospital y telefono 
+select Nombre_Hospital,Telefono from Sede_Hospital
+--consultar de la tabla sede_Hospital solo el registro que sea hospital Sede Norte
+select*from Sede_Hospital where Cod_Hospital='A003'
